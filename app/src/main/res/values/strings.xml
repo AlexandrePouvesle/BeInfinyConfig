@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BeInfinyConfig</string>
+    <string name="labelAccueil">Configuration carte / utilisateur</string>
+    <string name="labelCarte">ID de la carte:</string>
+    <string name="labelUser">Choisir l\'utilisateur à associer:</string>
+    <string name="btnAssocier">Associer</string>
+    <string name="toastUserEnCours">Récupération des utilisateurs en cours...</string>
+    <string name="toastSendOk">Association reussit.</string>
+    <string name="toastSendKo">Echec de l\'association.</string>
+</resources>
