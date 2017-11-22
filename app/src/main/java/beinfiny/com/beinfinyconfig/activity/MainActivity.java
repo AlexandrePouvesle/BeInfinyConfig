@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 response = Http.SendGetRequest(URL + GET_PHP);
             } catch (IOException e) {
                 // Test
-                response = "alexandre;rudy;jean;camille;axel;bob;marcel;toto;Marc";
+                // response = "alexandre;rudy;jean;camille;axel;bob;marcel;toto;Marc";
             }
             return response;
         }

@@ -7,4 +7,19 @@
     <string name="toastUserEnCours">Récupération des utilisateurs en cours...</string>
     <string name="toastSendOk">Association reussit.</string>
     <string name="toastSendKo">Echec de l\'association.</string>
+    <string name="prompt_login">Login</string>
+    <string name="action_password_in_short">Connex.</string>
+    <string name="prompt_login_in_short">OK</string>
+    <string name="labelLogin">Login</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="title_activity_login">Login</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_in">Connexion</string>
+    <string name="action_sign_in_short">Connex.</string>
+    <string name="error_incorrect_password">Le mot de passe est incorrect</string>
+    <string name="error_field_required">Ce champ est obligatoire</string>
+    <string name="prompt_email">Connexion</string>
+    <string name="error_invalid_email">Identifiant invalide</string>
+    <string name="error_invalid_password">Le mot de passe est trop court</string>
 </resources>
