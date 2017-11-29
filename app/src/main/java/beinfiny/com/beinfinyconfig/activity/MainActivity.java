@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Spinner spinnerUsers;
     private TextView contentId;
+    private String idCentre;
 
     private PendingIntent pendingIntent;
     private NfcAdapter mNfcAdapter;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         this.techListsArray = new String[][]{new String[]{
                 MifareClassic.class.getName()
         }};
+
+        // Récupération de l'id du centre
+        Intent myIntent = getIntent();
+        this.idCentre = myIntent.getStringExtra(getString(R.string.idCentre));
 
         // Récupération des utilisateurs existants
         this.GetUsers();
@@ -116,11 +121,12 @@ public class MainActivity extends AppCompatActivity {
             String response = null;
             try {
                 // Send request
-                response = Http.SendGetRequest(URL + GET_PHP);
+                response = Http.SendGetRequest(URL + GET_PHP + "?centre=" + idCentre);
             } catch (IOException e) {
                 // Test
                 // response = "alexandre;rudy;jean;camille;axel;bob;marcel;toto;Marc";
             }
+
             return response;
         }
 
@@ -153,8 +159,7 @@ public class MainActivity extends AppCompatActivity {
                 String param = "id=" + params[0].getIdCarte() + "&user=" + params[0].getUser();
                 response = Http.SendGetRequest(URL + SEND_PHP + "?" + param);
             } catch (IOException e) {
-                // Test
-                response = "OK";
+                response = "KO";
             }
             return response;
         }

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import beinfiny.com.beinfinyconfig.R;
 import beinfiny.com.beinfinyconfig.tools.Http;
@@ -31,12 +32,13 @@ import beinfiny.com.beinfinyconfig.tools.Http;
 public class LoginActivity extends AppCompatActivity{
 
     private static final String URL = "https://beinfiny.fr/app/";
-    private static final String GET_PHP = "centres.php";
+    private static final String POST_PHP = "authConfig.php";
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private String idCentre;
 
     // UI references.
     private EditText mLoginView;
@@ -77,6 +79,7 @@ public class LoginActivity extends AppCompatActivity{
 
     private void GoToMainScreen() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(getString(R.string.idCentre), this.idCentre);
         startActivity(intent);
     }
     /**
@@ -176,21 +179,28 @@ public class LoginActivity extends AppCompatActivity{
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             String response = null;
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
                 // Send request
-                response = Http.SendGetRequest(URL + GET_PHP);
+                HashMap<String, String> hm = new HashMap<String, String>();
+                hm.put("user", mLogin);
+                hm.put("password", mPassword);
+                String url = URL + POST_PHP + "?user="+ mLogin + "&password=" + mPassword;
+                response = Http.SendGetRequest(url);
             } catch (InterruptedException e) {
                 return false;
             }catch (IOException e) {
                 return false;
             }
-
-            return true;
+            if(response == "" || response.startsWith("KO")){
+                return  false;
+            } else {
+                idCentre = response.split(";")[1].split("\t")[0];
+                return true;
+            }
         }
 
         @Override

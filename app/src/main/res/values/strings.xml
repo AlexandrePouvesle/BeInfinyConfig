@@ -22,4 +22,5 @@
     <string name="prompt_email">Connexion</string>
     <string name="error_invalid_email">Identifiant invalide</string>
     <string name="error_invalid_password">Le mot de passe est trop court</string>
+    <string name="idCentre">idCentre</string>
 </resources>
