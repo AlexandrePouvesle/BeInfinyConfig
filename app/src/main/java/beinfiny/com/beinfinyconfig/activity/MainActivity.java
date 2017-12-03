@@ -25,7 +25,7 @@ import beinfiny.com.beinfinyconfig.tools.Http;
 public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://beinfiny.fr/app/";
-    private static final String GET_PHP = "centres.php";
+    private static final String GET_PHP = "users.php";
     private static final String SEND_PHP = "centres.php";
 
     private Spinner spinnerUsers;
