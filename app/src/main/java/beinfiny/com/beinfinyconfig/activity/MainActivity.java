@@ -155,8 +155,9 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(Assocation... params) {
             String response = null;
             try {
+                String userId  = params[0].getUser().split(",")[0];
                 // Send request
-                String param = "id=" + params[0].getIdCarte() + "&user=" + params[0].getUser();
+                String param = "id=" + params[0].getIdCarte() + "&user=" + userId;
                 response = Http.SendGetRequest(URL + SEND_PHP + "?" + param);
             } catch (IOException e) {
                 response = "KO";
