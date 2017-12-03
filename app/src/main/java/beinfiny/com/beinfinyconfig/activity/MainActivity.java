@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String URL = "https://beinfiny.fr/app/";
     private static final String GET_PHP = "users.php";
-    private static final String SEND_PHP = "centres.php";
+    private static final String SEND_PHP = "card.php";
 
     private Spinner spinnerUsers;
     private TextView contentId;
