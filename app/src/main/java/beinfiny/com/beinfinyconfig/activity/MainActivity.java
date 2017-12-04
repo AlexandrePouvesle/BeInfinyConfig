@@ -164,17 +164,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Assocation... params) {
             String response = null;
-            String idUser = "";
-            for (String user : usersList) {
-                if (user.split(",")[1].equals(params[0].getUser())) {
-                    idUser = user.split(",")[0];
-                    break;
-                }
-            }
+            String userId  = params[0].getUser().split(",")[0];
 
             try {
                 // Send request
-                String param = "UID_card=\"" + params[0].getIdCarte() + "\"&id_abonne=" + idUser;
+                String param = "UID_card=\"" + params[0].getIdCarte() + "\"&id_abonne=" + userId;
                 response = Http.SendGetRequest(URL + SEND_PHP + "?" + param);
             } catch (IOException e) {
                 // Test
