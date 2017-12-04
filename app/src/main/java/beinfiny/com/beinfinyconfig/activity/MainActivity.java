@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 import beinfiny.com.beinfinyconfig.R;
@@ -73,10 +74,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if (intent != null && NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
-            Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            this.contentId.setText(tag.getId().toString());
-        }
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        this.contentId.setText(this.ConvertHExToString((tag.getId())));
+    }
+
+    private String ConvertHExToString(byte[] raw) {
+        return String.format("%0" + (raw.length * 2) + "X", new BigInteger(1, raw));
     }
 
     @Override
