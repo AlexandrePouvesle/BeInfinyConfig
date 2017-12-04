@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private IntentFilter[] intentFiltersArray;
     private String[][] techListsArray;
 
-    private ArrayList<String> usersList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,8 +139,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             // Vérification de la réponse
-
-            usersList = new ArrayList<>();
 
             // Build array for adapter
             ArrayList<String> users = new ArrayList<>();
