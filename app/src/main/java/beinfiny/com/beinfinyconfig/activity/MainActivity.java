@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
+import android.nfc.tech.MifareUltralight;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,19 +48,21 @@ public class MainActivity extends AppCompatActivity {
         this.contentId = (TextView) findViewById(R.id.contentCarte);
 
         this.mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
+
         this.pendingIntent = PendingIntent.getActivity(
                 this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
         IntentFilter ndef = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
         try {
             ndef.addDataType("*/*");
         } catch (IntentFilter.MalformedMimeTypeException e) {
             throw new RuntimeException("fail", e);
         }
+
         this.intentFiltersArray = new IntentFilter[]{ndef,};
         this.techListsArray = new String[][]{new String[]{
-                MifareClassic.class.getName()
+                MifareUltralight.class.getName()
         }};
-
         // Récupération de l'id du centre
         Intent myIntent = getIntent();
         this.idCentre = myIntent.getStringExtra(getString(R.string.idCentre));
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
         Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         this.contentId.setText(this.ConvertHExToString((tag.getId())));
     }
@@ -127,9 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 response = Http.SendGetRequest(URL + GET_PHP + "?centre=" + idCentre);
             } catch (IOException e) {
                 // Test
-                // response = "alexandre;rudy;jean;camille;axel;bob;marcel;toto;Marc";
+                //response = "alexandre;rudy;jean;camille;axel;bob;marcel;toto;Marc";
             }
-
             return response;
         }
 
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             spinnerUsers.setAdapter(adapter);
 
             // Show first element
-            spinnerUsers.setSelection(1);
+            spinnerUsers.setSelection(0);
         }
     }
 
@@ -157,13 +160,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Assocation... params) {
             String response = null;
+            String userId  = params[0].getUser().split(",")[0];
+
             try {
-                String userId  = params[0].getUser().split(",")[0];
                 // Send request
-                String param = "id=" + params[0].getIdCarte() + "&user=" + userId;
+                String param = "UID_card=\"" + params[0].getIdCarte() + "\"&id_abonne=" + userId;
                 response = Http.SendGetRequest(URL + SEND_PHP + "?" + param);
             } catch (IOException e) {
-                response = "KO";
+                // Test
+                response = "OK";
             }
             return response;
         }
